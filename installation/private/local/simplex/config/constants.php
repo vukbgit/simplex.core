@@ -16,6 +16,8 @@ define('HOST', $_SERVER['HTTP_HOST'] ?? null);
 define('MIDDLEWARE_QUEUE_PATH', sprintf('%s/middleware.php', SHARE_CONFIG_DIR));
 //folder with HTTP errors pages
 define('ERROR_DIR', sprintf('%s/errors', PRIVATE_SHARE_DIR));
+//to force router cache to enable/disable, by default is disabled in development ENVIRONMENT and enabled in production ENVIRONMENT
+//define('ROUTER_CACHE_ENABLED', false);
 /**********
 * SESSION *
 **********/
