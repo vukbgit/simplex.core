@@ -1,3 +1,7 @@
+## 3.14.46 (April 03, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.45 -> 3.14.46
+- router cache force enbling
+
 ## 3.14.45 (April 03, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.44 -> 3.14.45
 - router cache force enbling
