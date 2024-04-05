@@ -90,7 +90,7 @@ $(document).ready(function(){
 {% endblock head %}
 
 {% block body %}
-  {% set sideBarBP = sideBarBP is defined ? sideBarBP : false %}
+  {% set sideBarBP = sideBarBP is defined ? sideBarBP : 'md' %}
   {% set sideBarWidth = sideBarWidth is defined ? sideBarWidth : '300px' %}
   {% set sideBarOpened = (areaCookie.sideBarState is not defined or areaCookie.sideBarState == '1') %}
   {% set hideSideBar = (hideSideBar is defined and hideSideBar is same as(true)) %}
