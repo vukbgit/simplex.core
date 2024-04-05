@@ -1,3 +1,7 @@
+## 3.14.47 (April 05, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.46 -> 3.14.47
+- ERP user menu
+
 ## 3.14.46 (April 03, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.45 -> 3.14.46
 - router cache force enbling
