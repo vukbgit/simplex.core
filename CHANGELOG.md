@@ -1,3 +1,7 @@
+## 3.14.49 (April 10, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.48 -> 3.14.49
+- fix: ERP sidebar
+
 ## 3.14.48 (April 05, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.47 -> 3.14.48
 - no records container
