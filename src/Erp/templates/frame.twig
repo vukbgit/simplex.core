@@ -46,6 +46,8 @@ $(document).ready(function(){
       case 0:
         $('#sidebar').addClass('closed');
         $('#sidebar').hide();
+        $('#sidebar').addClass('d-none');
+        $('#sidebar').addClass('d-{{ sideBarBP }}-none');
         $('#sidebar-toggle').removeClass('is-active');
         if(mobile) {
           $('main').show();
@@ -55,6 +57,8 @@ $(document).ready(function(){
       case 1:
         $('#sidebar').removeClass('closed');
         $('#sidebar').show();
+        $('#sidebar').removeClass('d-none');
+        $('#sidebar').removeClass('d-{{ sideBarBP }}-none');
         $('#sidebar-toggle').addClass('is-active');
         if(mobile) {
           $('main').hide();
@@ -168,13 +172,13 @@ $(document).ready(function(){
 <div class="d-flex">
   {% if not hideSideBar %}
     {# sidebar #}
-  <nav class="bg-dark text-light sidebar
+  <nav class="bg-dark text-light sidebar d-none d-{{ sideBarBP }}-block
     {% if not sideBarOpened %} closed{% endif %}
     {# {% if sideBarBP  %}d-none d-{{ sideBarBP }}-block{% endif %} #}
     {# {% if sideBarBP  %}position-fixed position-{{ sideBarBP }}-static
     {% else %}position-static{% endif %} #}
     "
-    style="display:none; min-width:{{ sideBarWidth }};"
+    style="position: static; min-width:{{ sideBarWidth }};"
     id="sidebar"
   >
         <div class="sidebar-sticky">
