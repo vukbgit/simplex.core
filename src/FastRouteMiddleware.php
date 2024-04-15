@@ -60,7 +60,7 @@ class FastRouteMiddleware implements MiddlewareInterface
             $fastRouteDispatcherClass = 'FastRoute\cachedDispatcher';
             $fastRouteCacheOptions = [
                 'cacheFile' => $tmpFolderPath . '/fastroute.cache', /* required */
-                'cacheDisabled' => ROUTER_CACHE_DISABLED ?? false,     /* optional, enabled by default */
+                'cacheDisabled' => defined('ROUTER_CACHE_DISABLED') ? ROUTER_CACHE_DISABLED : false,     /* optional, enabled by default */
             ];
         }else {
             $fastRouteDispatcherClass = 'FastRoute\simpleDispatcher';
