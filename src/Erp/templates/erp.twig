@@ -13,11 +13,11 @@
 
 {# include ancestors and subject labels, in this order to let subject override labels if necessary #}
 {% block body %}
-    {% for ancestor in ancestors %}
-        {{ include(getInstanceTemplate(ancestor.controller, 'labels.twig'), {'labels': labels}, with_context = true) }}
-    {% endfor %}
-    {{ include(getInstanceTemplate(null, 'labels.twig'), {'labels': labels}, with_context = true) }}
-    {{ parent() }}
+  {{ parent() }}
+  {% for ancestor in ancestors %}
+    {{ include(getInstanceTemplate(ancestor.controller, 'labels.twig'), {'labels': labels}, with_context = true) }}
+  {% endfor %}
+  {{ include(getInstanceTemplate(null, 'labels.twig'), {'labels': labels}, with_context = true) }}
 {% endblock %}
 
 {# messages & labels #}
