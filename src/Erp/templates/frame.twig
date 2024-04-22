@@ -79,10 +79,12 @@ $(document).ready(function(){
       if(mobile) {
         $('#sidebar').css('position', 'fixed');
         $('#sidebar').css('width', windowWidth + 'px');
+        $('#sidebar .sidebar-sticky').css('width', windowWidth + 'px');
         $('#sidebar .sidebar-sticky').append(topNavbar);
       } else {
         $('#sidebar').css('position', 'static');
         $('#sidebar').css('width', '{{ sideBarWidth }}');
+        $('#sidebar .sidebar-sticky').css('width', '{{ sideBarWidth }}');
         $('#navbar-top').append(topNavbar);
       }
       toggleSideBar(mobile ? 0 : (startingDesktopState ?? 1));
