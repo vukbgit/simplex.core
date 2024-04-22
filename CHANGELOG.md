@@ -1,3 +1,7 @@
+## 3.14.53 (April 22, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.52 -> 3.14.53
+- ERP body
+
 ## 3.14.52 (April 22, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.51 -> 3.14.52
 - ERP sidebar
