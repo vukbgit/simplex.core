@@ -1,3 +1,7 @@
+## 3.14.51 (April 22, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.50 -> 3.14.51
+- ERP sidebar
+
 ## 3.14.50 (April 15, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.49 -> 3.14.50
 - ROUTER_CACHE_DISABLED
