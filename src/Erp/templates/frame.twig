@@ -72,8 +72,10 @@ $(document).ready(function(){
 
   function toggleSideBarByWindowWidth(startingDesktopState) {
     const newWindowWidth = $( window ).width();
+    const newWindowHeight = $( window ).height();
     if(newWindowWidth != windowWidth) {
       windowWidth = newWindowWidth;
+      windowHeight = newWindowHeight;
       const mobile = windowWidth < mdBP;
       const topNavbar = $('#top-navbar').detach();
       if(mobile) {
@@ -84,6 +86,7 @@ $(document).ready(function(){
       } else {
         $('#sidebar').css('position', 'static');
         $('#sidebar').css('width', '{{ sideBarWidth }}');
+        $('#sidebar').css('height', windowHeight + 'px');
         $('#sidebar .sidebar-sticky').css('width', '{{ sideBarWidth }}');
         $('#navbar-top').append(topNavbar);
       }
