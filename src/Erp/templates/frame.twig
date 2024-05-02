@@ -105,9 +105,9 @@ $(document).ready(function(){
   {% set hideSideBar = (hideSideBar is defined and hideSideBar is same as(true)) %}
 
   {{ parent() }}
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap justify-content-start p-0 shadow" id="navbar-top" data-bs-theme="dark">
+<nav class="navbar navbar-dark fixed-top bg-dark flex-{{ sideBarBP }}-nowrap justify-content-start p-0 shadow" id="navbar-top" data-bs-theme="dark">
   {% if hideSideBar == false %}
-  <div id="sidebar-hat">
+  <div id="sidebar-hat" class="flex-{{ sideBarBP }}-shrink-0">
   <button type="button" name="button" class="d-flex align-items-center pf-c-button hamburger hamburger--collapse{% if sideBarOpened %} is-active{% endif %}" id="sidebar-toggle">
     <span class="hamburger-box">
       <span class="hamburger-inner"></span>
