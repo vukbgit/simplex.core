@@ -1,3 +1,7 @@
+## 3.14.56 (May 02, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.55 -> 3.14.56
+- fix: ERP sidebar background color
+
 ## 3.14.55 (May 02, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.54 -> 3.14.55
 - fix: ERP sidebar hat width
