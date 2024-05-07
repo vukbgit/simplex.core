@@ -9,8 +9,12 @@ use Twig\TwigFunction;
 use Twig\Loader\LoaderInterface;
 use Twig\Extra\Intl\IntlExtension;
 use jblond\TwigTrans\Translation;
-use Aptoma\Twig\Extension\MarkdownExtension;
-use Aptoma\Twig\Extension\MarkdownEngine;
+/*use Aptoma\Twig\Extension\MarkdownExtension;
+use Aptoma\Twig\Extension\MarkdownEngine;*/
+use Twig\Extra\Markdown\MarkdownExtension;
+use Twig\Extra\Markdown\DefaultMarkdown;
+use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use \Qferrer\Mjml\Renderer\BinaryRenderer;
 use \Qferrer\Mjml\Twig\MjmlExtension;
 
@@ -56,13 +60,21 @@ class TwigExtended extends Environment
     //Twig IntlExtension
     $this->addExtension(new IntlExtension());
     //markdown support
-    $markdownEngine = new MarkdownEngine\MichelfMarkdownEngine();
-    $this->addExtension(new MarkdownExtension($markdownEngine));
+    /*$markdownEngine = new MarkdownEngine\MichelfMarkdownEngine();
+    $this->addExtension(new MarkdownExtension($markdownEngine));*/
+    $this->addExtension(new MarkdownExtension());
     //mjml email templates support
     $renderer = new BinaryRenderer(PUBLIC_SHARE_DIR . '/node_modules/mjml/bin/mjml');
     // $api = new \Qferrer\Mjml\Http\CurlApi('my-app-id','my-secret-key');
     // $renderer = new \Qferrer\Mjml\Renderer\ApiRenderer($api);
     $this->addExtension(new MjmlExtension($renderer));
+    $this->addRuntimeLoader(new class implements RuntimeLoaderInterface {
+      public function load($class) {
+          if (MarkdownRuntime::class === $class) {
+              return new MarkdownRuntime(new DefaultMarkdown());
+          }
+        }
+    });
     //set context variable
     $this->addExtension(new class extends \Twig\Extension\AbstractExtension {
       public function getFunctions() {

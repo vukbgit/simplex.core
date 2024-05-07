@@ -28,7 +28,6 @@
         "nette/finder": ">=2.5",
         "aura/auth": ">=4.0",
         "slowprog/composer-copy-file": "~0.3",
-        "aptoma/twig-markdown": ">=3.4",
         "michelf/php-markdown": ">=1.9",
         "codezero/cookie": ">=2.0",
         "cocur/slugify": ">=4.1",
