@@ -24,6 +24,7 @@
         "twig/twig": ">=3.4",
         "twig/intl-extra": ">=3.4",
         "jblond/twig-trans": ">=1.1",
+        "twig/markdown-extra": ">=3.9",
         "vukbgit/pixie": ">=1.0",
         "nette/finder": ">=2.5",
         "aura/auth": ">=4.0",
