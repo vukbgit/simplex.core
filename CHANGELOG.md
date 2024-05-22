@@ -1,3 +1,7 @@
+## 3.14.58 (May 22, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.57 -> 3.14.58
+- refactor: twig/markdown-extra dependency
+
 ## 3.14.57 (May 07, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.56 -> 3.14.57
 
