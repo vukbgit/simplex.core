@@ -1,3 +1,7 @@
+## 3.14.59 (May 22, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.58 -> 3.14.59
+- added installation global bootstrap variables file
+
 ## 3.14.58 (May 22, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.57 -> 3.14.58
 - refactor: twig/markdown-extra dependency
