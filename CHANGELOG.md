@@ -1,3 +1,7 @@
+## 3.14.60 (May 25, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.59 -> 3.14.60
+- fix: custom ERP switch side bar url
+
 ## 3.14.59 (May 22, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.58 -> 3.14.59
 - added installation global bootstrap variables file
