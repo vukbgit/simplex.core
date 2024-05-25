@@ -7,7 +7,7 @@
   {% set sideBarBP = sideBarBP is defined ? sideBarBP : 'md' %}
   {% set sideBarWidth = sideBarWidth is defined ? sideBarWidth : '300px' %}
   {% set sideBarOpened = (areaCookie.sideBarState is not defined or areaCookie.sideBarState == '1') ? 1 : 0 %}
-  {% set switchUrl = '/%s%s%s/set-side-bar-state?s='|format(
+  {% set switchUrl = switchUrl is defined ? switchUrl : '/%s%s%s/set-side-bar-state?s='|format(
       area,
       routeParameters.lang ? '/%s'|format(routeParameters.lang) : null,
       subject ? '/%s'|format(subject) : null
