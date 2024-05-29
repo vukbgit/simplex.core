@@ -9,6 +9,8 @@ return (object) [
   //primary key alias is useful in contexts where table primary key proper name cannot be used
   //i.e: all of schema table have primary key field named 'id', when used as foreign key in db views or into routes definitions these fields *will* be aliased
   //'primaryKeyAlias' => 'PRIMARY-KEY-FIELD-ALIAS',
+  //whether to add timestamps to uploaded filenames to avoid names collisions, defaults to true
+  //'uniqueUploads' => true,
   'uploads' => [
     'UPLOAD-KEY' => [
       'OUTPUT-WITHOUT-HANDLER-KEY' => (object) [],

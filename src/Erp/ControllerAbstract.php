@@ -1224,14 +1224,16 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
         $inputName = array_keys($_FILES)[0];
         $uploadKey = str_replace('-upload', '', $inputName);
         $fileName = $_FILES[$inputName]['name'];
-        //add timestamp to fiel name to avoid over writing
-        $nameInfo = (object) pathinfo($fileName);
-        $fileName = sprintf(
-            '%s_%s.%s',
-            $nameInfo->filename,
-            time(),
-            $nameInfo->extension
-        );
+        //add timestamp to file name to avoid over writing?
+        if($this->model->hasUniqueUploads) {
+          $nameInfo = (object) pathinfo($fileName);
+          $fileName = sprintf(
+              '%s_%s.%s',
+              $nameInfo->filename,
+              time(),
+              $nameInfo->extension
+          );
+        }
         $this->uploadCore($uploadKey, $fileName, $_FILES[$inputName]['tmp_name']);
     }
     

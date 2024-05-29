@@ -30,6 +30,12 @@ abstract class ModelAbstract extends BaseModelAbstract
      * whether model has a geometry data type fields
      */
     public $hasGeometryFields;
+        
+    /**
+     * @var bool
+     * whether to add timestamps to uploaded filenames to avoid names collisions, defaults to true
+     */
+    public $hasUniqueUploads;
     
     /**
      * @var string
@@ -72,6 +78,8 @@ abstract class ModelAbstract extends BaseModelAbstract
       $this->hasPositionField = isset($this->config->position) && isset($this->config->position->field) && $this->config->position->field;
       //has geometry fields
       $this->hasGeometryFields = isset($this->config->geometryFields) && is_array($this->config->geometryFields) && !empty($this->config->geometryFields);
+      //has unique uploads
+      $this->hasUniqueUploads = !isset($this->config->uniqueUploads) || $this->config->uniqueUploads;
     }
     
     /**
