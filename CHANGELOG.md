@@ -1,3 +1,7 @@
+## 3.14.61 (May 29, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.60 -> 3.14.61
+- unique uploads
+
 ## 3.14.60 (May 25, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.59 -> 3.14.60
 - fix: custom ERP switch side bar url
