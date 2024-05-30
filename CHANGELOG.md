@@ -1,3 +1,7 @@
+## 3.14.62 (May 30, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.61 -> 3.14.62
+- ERP ControllerAbstract::() localized
+
 ## 3.14.61 (May 29, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.60 -> 3.14.61
 - unique uploads
