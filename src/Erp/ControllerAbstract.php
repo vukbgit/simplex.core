@@ -797,6 +797,10 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
         //get primary key fields
         $primaryKey = $this->model->getConfig()->primaryKey;
         $where = [[$primaryKey, $this->routeParameters->$primaryKey]];
+        $CRUDLConfig = $this->getCRUDLConfig();
+        if($this->model->hasDb && isset($CRUDLConfig->localized) && $CRUDLConfig->localized) {
+          $where[] = ['language_code', $this->language->{'ISO-639-1'}];
+        }
         $record = $this->model->first($where);
         if(!$record) {
             throw new \Exception("Current route is supposed to retrieve a record but record is not found", 1);
