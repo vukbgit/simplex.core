@@ -215,6 +215,9 @@ $(document).ready(function(){
   {% endblock %}
   {% block pageContent %}
   {% endblock %}
+  {% block pageFooter %}
+    {{ parent() }}
+  {% endblock %}
     </main>
 </div>
 {% endblock %}
