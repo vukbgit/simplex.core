@@ -1,3 +1,7 @@
+## 3.15.0 (May 31, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.14.62 -> 3.15.0
+- feat: ERP footer
+
 ## 3.14.62 (May 30, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.14.61 -> 3.14.62
 - ERP ControllerAbstract::() localized
