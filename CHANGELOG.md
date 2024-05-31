@@ -1,3 +1,7 @@
+## 3.15.2 (May 31, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.1 -> 3.15.2
+- ERP footer refactor
+
 ## 3.15.1 (May 31, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.0 -> 3.15.1
 - ERP footer refactor
