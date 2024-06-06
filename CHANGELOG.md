@@ -1,3 +1,7 @@
+## 3.15.3 (June 06, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.2 -> 3.15.3
+- fix: reset ERP table sorting
+
 ## 3.15.2 (May 31, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.1 -> 3.15.2
 - ERP footer refactor
