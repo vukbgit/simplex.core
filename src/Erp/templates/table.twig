@@ -38,6 +38,11 @@
             results will contain all of the search terms
           '|trans|format(fieldsLabels|join(', '))|nl2br|escape('js') }}'
         })
+      })
+    </script>
+  {% endif %}
+    <script type="text/javascript">
+      $(document).ready(function() {
         //reset sorting
         $('.reset-sorting').click(function() {
           const form = $($(this)[0].form);
@@ -47,7 +52,6 @@
         })
       })
     </script>
-  {% endif %}
 {% endblock %}
 
 {% block pageContent %}
