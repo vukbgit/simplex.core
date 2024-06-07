@@ -1050,7 +1050,8 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
             }
             $error = $this->model->handleException($exception);
             $this->setSubjectAlert('danger', $error);
-            $redirectRoute = $this->buildRouteToActionFromRoot('insert-form');
+            //$redirectRoute = $this->buildRouteToActionFromRoot('insert-form');
+            $redirectRoute = $_SERVER['HTTP_REFERER'];
         }
         //redirect
         $this->redirect($redirectRoute, (object) $fieldsData->saveFieldsValues);
