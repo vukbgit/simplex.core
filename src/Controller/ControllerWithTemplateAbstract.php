@@ -459,13 +459,24 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
                 $templateName
             );
         });
-        //processes a template for a file upload preview
+        //builds path to an uploaded file output
         $this->addTemplateFunction(
             'getPublicOutputFilePath',
             function($uploadKey, $outputKey, $fileName, $modelName = null, $getAsUrl = false){
                 if($fileName) {
                     $model = $modelName ? $this->$modelName : $this->model;
                     return $model->getPublicOutputFilePath($uploadKey, $outputKey, $fileName);
+                }
+            }
+        );
+        //builds path to an uploaded file output
+        $this->addTemplateFunction(
+            'buildOutputFileFileInfo',
+            function($uploadKey, $outputKey, $fileName, $modelName = null, $getAsUrl = false){
+                if($fileName) {
+                    $model = $modelName ? $this->$modelName : $this->model;
+                    $path = $model->getPublicOutputFilePath($uploadKey, $outputKey, $fileName);
+                    return new \SplFileInfo($path);
                 }
             }
         );
