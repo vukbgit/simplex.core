@@ -1,3 +1,7 @@
+## 3.15.6 (June 07, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.5 -> 3.15.6
+- ERP insert record error route
+
 ## 3.15.5 (June 07, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.4 -> 3.15.5
 - ERP update record error route
