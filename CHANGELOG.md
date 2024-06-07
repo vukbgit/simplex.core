@@ -1,3 +1,7 @@
+## 3.15.4 (June 07, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.3 -> 3.15.4
+- fix: template function description
+
 ## 3.15.3 (June 06, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.2 -> 3.15.3
 - fix: reset ERP table sorting
