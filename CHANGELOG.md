@@ -1,3 +1,7 @@
+## 3.15.5 (June 07, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.4 -> 3.15.5
+- ERP update record error route
+
 ## 3.15.4 (June 07, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.3 -> 3.15.4
 - fix: template function description
