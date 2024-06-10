@@ -1,3 +1,8 @@
+## 3.15.7 (June 10, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.6 -> 3.15.7
+- ERP displayPrimaryKeyInput macro looks also for model primaryKeyAlias
+- ERP delete record redirect route
+
 ## 3.15.6 (June 07, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.5 -> 3.15.6
 - ERP insert record error route
