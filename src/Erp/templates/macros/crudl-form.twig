@@ -2,7 +2,12 @@
 # Displays record primary key values into hidden form fields
 ##}
 {% macro displayPrimaryKeyInput(context, model) %}
-    <input type="hidden" name="{{ model.getConfig().primaryKey }}" value="{{ attribute(context.routeParameters, model.getConfig().primaryKey) }}">
+  {% if attribute(context.routeParameters, model.getConfig().primaryKey) %}
+    {% set value = attribute(context.routeParameters, model.getConfig().primaryKey) %}
+  {% elseif model.getConfig().primaryKeyAlias %}
+    {% set value = attribute(context.routeParameters, model.getConfig().primaryKeyAlias) %}
+  {% endif %}
+  <input type="hidden" name="{{ model.getConfig().primaryKey }}" value="{{ value }}">
 {% endmacro %}
 
 {##
