@@ -1,3 +1,7 @@
+## 3.15.8 (June 10, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.7 -> 3.15.8
+- ERP CSS for main containers height
+
 ## 3.15.7 (June 10, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.6 -> 3.15.7
 - ERP displayPrimaryKeyInput macro looks also for model primaryKeyAlias
