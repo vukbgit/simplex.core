@@ -1123,6 +1123,19 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
     }
     
     /**
+     * Performs action after record deletion
+     * to be overridden by children classes if necessary
+     * @param mixed $primaryKeyValue
+     * @param object $record
+     * @return object
+     *    ->redirectRoute to override default redirectRoute
+     *    ->messageCode to override default message code
+     */
+    protected function doAfterRecordDelete($primaryKeyValue, object $record)
+    {
+    }
+    
+    /**
      * Deletes record
      */
     protected function delete()
@@ -1139,13 +1152,30 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
         $primaryKeyValue = filter_input(INPUT_POST, $primaryKeyField, $primayKeyFilter, $primayKeyOptions);
         try {
             //delete record
+            $record = $this->model->first([[$primaryKeyField, $primaryKeyValue]]);
             $this->model->delete($primaryKeyValue);
-            $redirectRoute = $this->buildRouteToActionFromRoot('list');
-            $this->setSubjectAlert('success', (object) ['code' => 'delete_success']);
+            $saveProcessing = $this->doAfterRecordDelete($primaryKeyValue, $record);
+            //redirect
+            if(is_object($saveProcessing) && isset($saveProcessing->redirectRoute)) {
+                $redirectRoute = $saveProcessing->redirectRoute;
+            } else {
+                $redirectRoute = $this->buildRouteToActionFromRoot('list');
+            }
+            //message
+            if(is_object($saveProcessing) && isset($saveProcessing->messageCode)) {
+                $messageCode = $saveProcessing->messageCode;
+            } else {
+                $messageCode = 'delete_success';
+            }
+            if($messageCode) {
+              $messageSeverity = $saveProcessing->messageSeverity ?? 'success';
+              $this->setSubjectAlert($messageSeverity, (object) ['code' => $messageCode]);
+            }
         } catch(\PDOException $exception) {
             $error = $this->model->handleException($exception);
             $this->setSubjectAlert('danger', $error);
-            $redirectRoute = $this->buildRouteToActionFromRoot(sprintf('delete-form/%s', $primaryKeyValue));
+            //$redirectRoute = $this->buildRouteToActionFromRoot(sprintf('delete-form/%s', $primaryKeyValue));
+            $redirectRoute = $_SERVER['HTTP_REFERER'];
         }
         //redirect
         $this->redirect($redirectRoute);
