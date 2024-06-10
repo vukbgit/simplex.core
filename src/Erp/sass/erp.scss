@@ -16,6 +16,16 @@ $darker: rgba(0, 0, 0, .25);
 @import 'share/packagist/vukbgit/simplex/src/Erp/sass/table.scss';
 //forms
 @import 'share/packagist/vukbgit/simplex/src/Erp/sass/form.scss';
+//to handle side bar and content height
+html {
+  min-height:100%;
+  body {
+    min-height:100%;
+    > div {
+      min-height:100%;
+    }
+  }
+}
 //navbar
 .navbar {
     &.navbar-dark {
