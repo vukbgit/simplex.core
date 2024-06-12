@@ -54,13 +54,26 @@ If any bulk action is configured diplays checkbox whose value is the record prop
 #}
 {% macro displayRowBegin(context, loop, record) %}
   {% if context.navigations.bulkActions|length %}
+    {% if context.model.getConfig().bulkActionsKey %}
+      {% set keys = context.model.getConfig().bulkActionsKey %}
+    {% else %}
+      {% set keys = context.model.getConfig().primaryKey %}
+    {% endif %}
+    {% if keys is not iterable %}
+      {% set keys = [keys] %}
+    {% endif %}
+    {% set values = [] %}
+    {% for key in keys %}
+      {% set values = values|merge([attribute(record, key)]) %}
+    {% endfor %}
+    {% set value = values|join('|') %}
     <td class="align-middle">
-        <div>
-            <input
-              type="checkbox"
-              name="bulk_action_records_ids[]"
-              value="{{ attribute(record, context.model.getConfig().bulkActionsKey ?? context.model.getConfig().primaryKey ?? '') }}">
-        </div>
+      <div>
+        <input
+          type="checkbox"
+          name="bulk_action_records_ids[]"
+          value="{{ value }}">
+      </div>
     </td>
   {% endif %}
 {% endmacro %}
