@@ -66,14 +66,14 @@ If any bulk action is configured diplays checkbox whose value is the record prop
     {% for key in keys %}
       {% set values = values|merge([attribute(record, key)]) %}
     {% endfor %}
-    {% set value = values|join('|') %}
+    {% set value = values|join(context.model.getConfig().bulkActionsKeySeparator|default('#')) %}
     <td class="align-middle">
       <div>
         <input
           type="checkbox"
           name="bulk_action_records_ids[]"
           value="{{ value }}">
-      </div>
+      </div>{{ value }}
     </td>
   {% endif %}
 {% endmacro %}

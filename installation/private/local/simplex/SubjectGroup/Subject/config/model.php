@@ -61,4 +61,9 @@ return (object) [
     //'size' => [[XXXXXX, '<']],
   ],
   */
+  /*//BULK ACTIONS
+  //a single or an array of field names...
+  'bulkActionsKey' => ['field1','field2'],
+  //...to be joined by the following separator which *MUST* be different from | (used to join bulk action values upon transmission) and defaults to #
+  //'bulkActionsKeySeparator' => '',*/
 ];
