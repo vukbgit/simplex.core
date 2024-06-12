@@ -1,3 +1,7 @@
+## 3.15.11 (June 12, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.10 -> 3.15.11
+- feat: multiple ERP bulk action keys separator
+
 ## 3.15.10 (June 12, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.9 -> 3.15.10
 - feat: multiple ERP bulk action keys separator
