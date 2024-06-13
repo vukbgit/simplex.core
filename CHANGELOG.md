@@ -1,3 +1,7 @@
+## 3.15.12 (June 13, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.11 -> 3.15.12
+- feat: custom ERP bulk action confirm message
+
 ## 3.15.11 (June 12, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.10 -> 3.15.11
 - feat: multiple ERP bulk action keys separator
