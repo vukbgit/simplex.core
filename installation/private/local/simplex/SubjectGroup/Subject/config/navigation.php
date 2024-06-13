@@ -52,9 +52,11 @@ return [
       'delete-bulk' => (object) [
         'routeFromSubject' => 'delete-bulk',
         'permissions' => [sprintf('manage-%s', $subject)],
-        'noConfirm' => false
+        'noConfirm' => false,
+        //custom confirm message, the key of a label with path subject / 'alerts' / key, format() filter will be applied with action label as argument
+        //'confirm_message_label' => 'label-key',
         //to change form target to _blank
-        'blank' => false
+        'blank' => false,
       ]
     ],
 ];

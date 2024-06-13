@@ -120,7 +120,12 @@
                 class="btn btn-sm btn-outline-secondary"
                 data-route="{{ buildRouteToAction(actionProperties) }}"
                 {% if actionProperties.noConfirm is not defined or actionProperties.noConfirm is same as false %}
-                data-confirm="{{ getLabel('alerts', 'bulk_confirm')|format(actionLabel)|escape('html_attr') }}"
+                  {% if attribute(actionProperties, 'confirm_message_label') %}
+                    {% set confirmMessage = getLabel(subject, 'alerts', attribute(actionProperties, 'confirm_message_label')) %}
+                  {% else %}
+                    {% set confirmMessage = getLabel('alerts', 'bulk_confirm') %}
+                  {% endif %}
+                data-confirm="{{ confirmMessage|format(actionLabel)|escape('html_attr') }}"
                 {% endif %}
                 >{{ actionLabel }}</button>
             {% if actionProperties.blank %}
