@@ -1,3 +1,8 @@
+## 3.15.13 (June 17, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.12 -> 3.15.13
+- ERP move buttons class into draft
+- fix: ERP position field fitler input
+
 ## 3.15.12 (June 13, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.11 -> 3.15.12
 - feat: custom ERP bulk action confirm message
