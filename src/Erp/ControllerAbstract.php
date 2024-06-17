@@ -941,6 +941,11 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
                 }
             }
         }
+        if($this->model->hasDb && $this->model->hasPositionField) {
+          $modelPosition = $this->model->getConfig()->position;
+          $positionField = $modelPosition->field;
+          $inputFieldsFilters[$positionField] = FILTER_VALIDATE_INT;
+        }
         $input = filter_input_array(INPUT_POST, $inputFieldsFilters);
         //position field
         if($this->model->hasDb && $this->model->hasPositionField) {
