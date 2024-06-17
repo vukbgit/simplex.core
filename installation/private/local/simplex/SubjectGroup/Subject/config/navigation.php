@@ -25,13 +25,13 @@ return [
         /*'move-down' => (object) [
             'routeFromSubject' => sprintf('move-record-down/{%s}', $modelConfig->primaryKey),
             'permissions' => [sprintf('manage-%s', $subject)],
-            'linkClass' => 'icon-erp-triangle-down',
+            'linkClass' => 'icon-erp-triangle-down btn btn-sm btn-primary',
             'conditions' => ['moveDown']
         ],
         'move-up' => (object) [
             'routeFromSubject' => sprintf('move-record-up/{%s}', $modelConfig->primaryKey),
             'permissions' => [sprintf('manage-%s', $subject)],
-            'linkClass' => 'icon-erp-triangle-up',
+            'linkClass' => 'icon-erp-triangle-up btn btn-sm btn-primary',
             'conditions' => ['moveUp']
         ],*/
         'update-form' => (object) [
