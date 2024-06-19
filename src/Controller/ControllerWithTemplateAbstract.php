@@ -69,7 +69,7 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
     * Constructor
     * @param ContainerInterface $DIContainer
     * @param ResponseInterface $response
-    * @param Environment $twigEnvironment
+    * @param Environment $templateEngine
     * @param VanillaCookieExtended $cookie
     */
     public function __construct(

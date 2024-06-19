@@ -30,25 +30,25 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
     protected $ancestors = [];
 
     /**
-    * @param object
+    * @var object
     * CRUDL config object
     **/
     protected $CRUDLConfig;
     
     /**
-    * @param object
+    * @var object
     * current user options, set by the UI and stored into area cookie under subject property
     **/
     protected $subjectCookie;
     
     /**
-    * @param int
+    * @var int
     * query limit
     **/
     protected $queryLimit = null;
     
     /**
-    * @param array
+    * @var array
     * list extra fields any field to get into list query in addition to the ones defined into table/view for example:
     *                fields aliases
     *                fields based on runtime variables
@@ -59,7 +59,7 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
     * Constructor
     * @param ContainerInterface $DIContainer
     * @param ResponseInterface $response
-    * @param Environment $twigEnvironment
+    * @param Environment $templateEngine
     * @param VanillaCookieExtended $cookie
     */
     public function __construct(
@@ -1281,9 +1281,9 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
     /**
      * Uploads a file
      * @param string $uploadKey
-     * @param string $fieldName
+     * @param string $fileName
      * @param string $fileSourcePath
-     * @param bool $isUploadedFile: whether fiel is uploaded or already stored into filesystem
+     * @param bool $isUploadedFile: whether file is uploaded or already stored into filesystem
      * @param bool $outputError: whether to outpu erro in json format
      */
     public function uploadCore(string $uploadKey, string $fileName, string $fileSourcePath, bool $isUploadedFile = true, bool $outputError = true)
