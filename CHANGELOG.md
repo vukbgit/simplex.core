@@ -1,3 +1,7 @@
+## 3.15.14 (June 19, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.13 -> 3.15.14
+- typos
+
 ## 3.15.13 (June 17, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.12 -> 3.15.13
 - ERP move buttons class into draft
