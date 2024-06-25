@@ -1,3 +1,7 @@
+## 3.15.16 (June 25, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.15 -> 3.15.16
+- extendable translator extractor
+
 ## 3.15.15 (June 20, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.14 -> 3.15.15
 - fix: ERP html and body height
