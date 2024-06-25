@@ -19,7 +19,7 @@ if(!isset($argv[1]) || !isset($argv[2]) || !in_array($argv[1], $possibleOperatio
     $operation = $argv[1];
 }
 //context
-$context = $argv[2] ?? null;
+$context = $argv[2];
 /********************************
 * build local templates helpers *
 ********************************/
