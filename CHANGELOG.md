@@ -1,3 +1,8 @@
+## 3.15.17 (July 08, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.16 -> 3.15.17
+- multiple forms validation
+- moved up ERP Controller::processSaveFormInput()
+
 ## 3.15.16 (June 25, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.15 -> 3.15.16
 - extendable translator extractor
