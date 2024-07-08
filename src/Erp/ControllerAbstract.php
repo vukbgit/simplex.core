@@ -947,6 +947,8 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
           $inputFieldsFilters[$positionField] = FILTER_VALIDATE_INT;
         }
         $input = filter_input_array(INPUT_POST, $inputFieldsFilters);
+        //process input
+        $inputExtraData = $this->processSaveFormInput($input);
         //position field
         if($this->model->hasDb && $this->model->hasPositionField) {
             $modelPosition = $this->model->getConfig()->position;
@@ -960,8 +962,6 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
                 $input[$positionField] = $this->model->getNextPosition($contextFieldsValues);
             }
         }
-        //process input
-        $inputExtraData = $this->processSaveFormInput($input);
         //separate localized and non localized values
         $inputLocales = [];
         foreach (array_keys((array) $this->languages) as $languageCode) {
