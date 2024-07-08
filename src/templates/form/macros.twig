@@ -1473,35 +1473,27 @@ var simplexValidation = {
     //'use strict';
     init: function() {
         window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            for (var i = 0; i < forms.length; i++) {
-                //add novalidate to skip browser native validation, do it by javascript so that in case of javascript error native validation still works
-                forms[i].setAttribute('novalidate', true);
-                // Get all of the form elements
-                var fields = forms[i].elements;
-                var field, attributeName, attributeCheck, validityState;
-                //var regex = /'data-validity-state-([a-z\-]+)-invalid'/g;
-                var regex = /data-validity-state-([a-z\-]+)-invalid/g;
-                for (var i = 0; i < fields.length; i++) {
-                    field = fields[i];
-                    //if(simplexValidation.fieldIsToValidate(field)) {
-                        //search for a validity state already triggered at compile time
-                        //var dataAttribute = 'data-validity-state-' + validityState + '-message';
-                        //return field.attributes[dataAttribute] ? field.attributes[dataAttribute].value : defaultErrorMessage;
-                        
-                        for (var j = 0; j < field.attributes.length; j++) {
-                            attributeName = field.attributes[j].name;
-                            //attributeCheck = attributeName.match(regex);
-                            attributeCheck = regex.exec(attributeName);
-                            if(attributeCheck) {
-                                validityState = attributeCheck[1];
-                                simplexValidation.showError(field, simplexValidation.getFieldError(field, validityState));
-                            }
-                        }
-                    //}
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          for (var i = 0; i < forms.length; i++) {
+            //add novalidate to skip browser native validation, do it by javascript so that in case of javascript error native validation still works
+            forms[i].setAttribute('novalidate', true);
+            // Get all of the form elements
+            var fields = forms[i].elements;
+            var field, attributeName, attributeCheck, validityState;
+            var regex = /data-validity-state-([a-z\-]+)-invalid/g;
+            for (var j = 0; j < fields.length; j++) {
+              field = fields[j];
+              for (var k = 0; k < field.attributes.length; k++) {
+                attributeName = field.attributes[k].name;
+                attributeCheck = regex.exec(attributeName);
+                if(attributeCheck) {
+                  validityState = attributeCheck[1];
+                  simplexValidation.showError(field, simplexValidation.getFieldError(field, validityState));
                 }
+              }
             }
+          }
             // Listen to all blur events
             document.addEventListener(
                 'blur',
