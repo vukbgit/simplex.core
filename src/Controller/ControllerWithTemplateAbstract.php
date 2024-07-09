@@ -687,6 +687,13 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
         **********/
         //sets an area cookie
         $this->addTemplateFunction(
+            'setAreaCookie',
+            function(string $propertyName, $propertyValue){
+                return $this->setAreaCookie($propertyName, $propertyValue);
+            }
+        );
+        //sets an area cookie array
+        $this->addTemplateFunction(
             'setAreaCookieArray',
             function(array $propertyNames, $propertyValue){
                 return $this->setAreaCookieArray($propertyNames, $propertyValue);
