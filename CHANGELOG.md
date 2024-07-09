@@ -1,3 +1,8 @@
+## 3.15.18 (July 09, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.17 -> 3.15.18
+- feat: setAreaCookie template function
+- fix: honey pot macro
+
 ## 3.15.17 (July 08, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.16 -> 3.15.17
 - multiple forms validation
