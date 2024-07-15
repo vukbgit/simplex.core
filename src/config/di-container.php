@@ -34,6 +34,8 @@ use Simplex\PHPMailerExtended;
 use Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 //slugifier
 use Cocur\Slugify\Slugify;
+//sitemap
+use Simplex\Sitemap;
 //to get LOCAL CLASSES
 use function Simplex\mergeArrayFromFiles;
 //definitions array
@@ -116,6 +118,8 @@ return array_merge(
         'passwordGenerator' => create(ComputerPasswordGenerator::class),
         //slugifier
         'slugifier' => create(Slugify::class),
+        //sitemap
+        'xmlSitemap' => create(Sitemap\XmlSitemap::class),
         /**********************************
         * STOP ADDITIONAL FUNCTIONALITIES *
         **********************************/
