@@ -1,3 +1,8 @@
+## 3.15.19 (July 15, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.18 -> 3.15.19
+- sitemap builder class
+- fix typo
+
 ## 3.15.18 (July 09, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.17 -> 3.15.18
 - feat: setAreaCookie template function
