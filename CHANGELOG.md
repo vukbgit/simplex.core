@@ -1,3 +1,7 @@
+## 3.15.20 (July 23, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.19 -> 3.15.20
+- fontello install script
+
 ## 3.15.19 (July 15, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.18 -> 3.15.19
 - sitemap builder class
