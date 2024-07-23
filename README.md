@@ -210,6 +210,7 @@ For details see [Folders and Files Structure](#Folders-and-Files-Structure) belo
             * [jquery latest](http://jquery.com/)
             * [js-cookie](https://github.com/js-cookie/js-cookie): javascript library to handle cookies
             * [mjml](https://www.npmjs.com/package/mjml): for responsive emails creation
+            * [fontello-cli](https://www.npmjs.com/package/fontello-cli): to download Fontello icons
         * backends or enterprise web applications (ERP) mostly (even if they can be useful also in frontend development):
             * [bootstrap-fileinput](https://plugins.krajee.com/file-input): for asyncronous file upload. NOTE: as for 2019-11-12 version is frozen to 5.0.4 due to a bug in auto upload
             * [flatpickr](https://github.com/flatpickr/flatpickr): for date time picker
