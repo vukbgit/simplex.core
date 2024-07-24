@@ -1,3 +1,7 @@
+## 3.15.21 (July 24, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.20 -> 3.15.21
+- feat: automatic translations
+
 ## 3.15.20 (July 23, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.19 -> 3.15.20
 - fontello install script
