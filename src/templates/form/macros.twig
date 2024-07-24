@@ -224,24 +224,54 @@ NOTE: to perform validation Simplex does not use browser built in but a pattern 
             {% set languageInputConfig = config %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'name', '%s[%s]'|format(config.name, languageCode)) %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'value', attribute(config.value, languageCode)) %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'languageCode', languageCode) %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'countryCode', attribute(language, 'ISO-3166-1-2')|lower) %}
+            {% set masterLocalized = 
+              constant('AUTOMATIC_TRANSLATIONS') is defined
+              and
+              languageCode == attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage')
+            %}
+            {% set nullableLocalized = 
+              constant('AUTOMATIC_TRANSLATIONS') is defined
+              and
+              languageCode != attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage')
+            %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'masterLocalized', masterLocalized) %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'nullableLocalized', nullableLocalized) %}
             {% set inputsConfigs = inputsConfigs|merge([languageInputConfig]) %}
         {% endfor %}
     {% endif %}
+    {% if constant('AUTOMATIC_TRANSLATIONS') is defined %}
+    <script>
+      function handleTranslations(translations) {
+          {% for inputConfig in inputsConfigs %}
+            {% if inputConfig.nullableLocalized  %}
+            languageEditor = {{ 'richTextEditor_' ~ inputConfig.id }};
+            console.log(languageEditor)
+            console.log(translations['{{ inputConfig.languageCode }}'])
+            languageEditor.value = translations['{{ inputConfig.languageCode }}'];
+            {% endif %}
+          {% endfor %}
+      }
+    </script>
+    {% endif %}
     {% for inputConfig in inputsConfigs %}
-        {{ selfMacros.displayFormGroup(config, inputId) }}
-        {{ selfMacros.displayLabel(inputConfig) }}
-        {% if config.cols is defined %}
-        <div class="col-12 col-sm-{{ config.cols[1] }}">
-        {% endif %}
-        
-        {{ selfMacros.displayInputByTipe(type, inputConfig) }}
-        {{ selfMacros.displayHelp(config) }}
-        
-        {% if config.cols is defined %}
-        </div>
-        {% endif %}
-    
+      {% set inputConfigConfig = inputConfig %}
+      {{ selfMacros.displayFormGroup(config, inputId) }}
+      {{ selfMacros.displayLabel(inputConfigConfig) }}
+      {% if config.cols is defined %}
+      <div class="col-12 col-sm-{{ config.cols[1] }}">
+      {% endif %}
+      
+      {% if inputConfigConfig.masterLocalized %}
+        {% set inputConfigConfig = updateProperty(inputConfigConfig, 'append', '<button type="button" class="btn icon-erp-languages translate-text-input"></button>') %}
+      {% endif %}
+      {{ selfMacros.displayInputByTipe(type, inputConfigConfig) }}
+      {{ selfMacros.displayHelp(inputConfigConfig) }}
+      
+      {% if config.cols is defined %}
+      </div>
+      {% endif %}
     </div>
     {% endfor %}
 {% endmacro %}
@@ -288,89 +318,109 @@ NOTE: to perform validation Simplex does not use browser built in but a pattern 
             {% set languageInputConfig = updateProperty(languageInputConfig, 'name', '%s[%s]'|format(config.name, languageCode)) %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'id', languageInputConfig.name|formatIdforJs) %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'value', attribute(config.value, languageCode)) %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'languageCode', languageCode) %}
             {% set languageInputConfig = updateProperty(languageInputConfig, 'countryCode', attribute(language, 'ISO-3166-1-2')|lower) %}
+            {% set masterLocalized = 
+              constant('AUTOMATIC_TRANSLATIONS') is defined
+              and
+              languageCode == attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage')
+            %}
+            {% set nullableLocalized = 
+              constant('AUTOMATIC_TRANSLATIONS') is defined
+              and
+              languageCode != attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage')
+            %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'masterLocalized', masterLocalized) %}
+            {% set languageInputConfig = updateProperty(languageInputConfig, 'nullableLocalized', nullableLocalized) %}
             {% set inputsConfigs = inputsConfigs|merge([languageInputConfig]) %}
         {% endfor %}
     {% endif %}
 
+      {# all buttons as of version 4.0.0-beta.61
+        buttons: [
+          //font-style
+          ['bold', 'italic', 'underline', 'strikethrough', 'eraser'],
+          //list
+          ['ul', 'ol'],
+          //font
+          ['font', 'fontsize', 'paragraph', 'classSpan', 'lineHeight'],
+          //script
+          ['superscript', 'subscript'],
+          //media
+          ['file', 'image', 'video'],
+          //state
+          ['spellcheck'],
+          //clipboard
+          ['cut', 'copy', 'paste', 'selectall', 'copyformat'],
+          //insert
+          ['hr', 'table', 'link', 'symbols'],
+          //indent
+          ['indent', 'outdent', 'left'],
+          //color
+          ['brush'],
+          //history
+          ['undo', 'redo'],
+          //search
+          ['find'],
+          //source
+          ,['source'],
+          //other
+          ['fullsize', 'preview', 'print'],
+          //info
+          ['about'],
+        ],
+      #}
+      {% set defaultButtonsGroups = [
+        ['bold', 'italic', 'underline', 'strikethrough'],
+        ['ul', 'ol'],
+        ['cut', 'copy', 'paste'],
+        ['indent', 'outdent', 'left', 'right', 'center', 'justify'],
+        ['link'],
+        ['undo', 'redo'],
+        ['source','fullsize', 'preview'],
+        ['about'],
+      ] %}
+    
     {% for inputConfig in inputsConfigs %}
-        {{ selfMacros.displayFormGroup(config, inputConfig.id) }}
-        {{ selfMacros.displayLabel(inputConfig) }}
-        
-        {% if config.cols is defined %}
-        <div class="col-12 col-sm-{{ config.cols[1] }}">
+      {{ selfMacros.displayFormGroup(config, inputConfig.id) }}
+      {{ selfMacros.displayLabel(inputConfig) }}
+      
+      {% if config.cols is defined %}
+      <div class="col-12 col-sm-{{ config.cols[1] }}">
+      {% endif %}
+      {{ selfMacros.displayTextarea(inputConfig) }}
+      {{ selfMacros.displayHelp(config) }}
+      {% set inputConfigButtonsGroups = defaultButtonsGroups %}
+      {% if inputConfig.masterLocalized %}
+        {% set inputConfigButtonsGroups = inputConfigButtonsGroups|merge([['translate']]) %}
+      {% endif %}
+      {% set buttons = [] %}
+      {% for group in inputConfigButtonsGroups %}
+        {% if not loop.last %}
+          {% set group = group|merge(['|']) %}
         {% endif %}
-        {{ selfMacros.displayTextarea(inputConfig) }}
-        {{ selfMacros.displayHelp(config) }}
-          {# all buttons as of version 4.0.0-beta.61
-            buttons: [
-              //font-style
-              ['bold', 'italic', 'underline', 'strikethrough', 'eraser'],
-              //list
-              ['ul', 'ol'],
-              //font
-              ['font', 'fontsize', 'paragraph', 'classSpan', 'lineHeight'],
-              //script
-              ['superscript', 'subscript'],
-              //media
-              ['file', 'image', 'video'],
-              //state
-              ['spellcheck'],
-              //clipboard
-              ['cut', 'copy', 'paste', 'selectall', 'copyformat'],
-              //insert
-              ['hr', 'table', 'link', 'symbols'],
-              //indent
-              ['indent', 'outdent', 'left'],
-              //color
-              ['brush'],
-              //history
-              ['undo', 'redo'],
-              //search
-              ['find'],
-              //source
-              ,['source'],
-              //other
-              ['fullsize', 'preview', 'print'],
-              //info
-              ['about'],
-            ],
-          #}
-            {% set defaultButtonsGroups = [
-              ['bold', 'italic', 'underline', 'strikethrough'],
-              ['ul', 'ol'],
-              ['cut', 'copy', 'paste'],
-              ['indent', 'outdent', 'left', 'right', 'center', 'justify'],
-              ['link'],
-              ['undo', 'redo'],
-              ['source','fullsize', 'preview'],
-              ['about'],
-            ] %}
-            {% set buttons = [] %}
-            {% for group in defaultButtonsGroups %}
-              {% if not loop.last %}
-                {% set group = group|merge(['|']) %}
-              {% endif %}
-              {% set buttons = buttons|merge(group) %}
-            {% endfor %}
-            {% set options = {
-              buttons: buttons,
-              toolbarAdaptive: false,
-            }|merge(options) %}
-          <script>
-            Jodit.make(
-              '#{{ inputConfig.id }}',
-              {
-          {% for option,value in options %}
-            {{ option }}: {{ value|varToJs }},
-          {% endfor %}
-              }
-            );
-          </script>
-        {% if config.cols is defined %}
-        </div>
-        {% endif %}
-        
+        {% set buttons = buttons|merge(group) %}
+      {% endfor %}
+      {% set inputConfigOptions = {
+        buttons: buttons,
+        toolbarAdaptive: false,
+      }|merge(options) %}
+      {% set editorInstanceName = 'richTextEditor_' ~ inputConfig.id %}
+      <script>
+        const {{ editorInstanceName }} = Jodit.make(
+          '#{{ inputConfig.id }}',
+          {
+      {% for option,value in inputConfigOptions %}
+        {{ option }}: {{ value|varToJs }},
+      {% endfor %}
+          }
+        );
+        //editorInstanceName.toolbar.registerButton
+        //console.log({{ editorInstanceName }})
+      </script>
+      {% if config.cols is defined %}
+      </div>
+      {% endif %}
     </div>
     {% endfor %}
 {% endmacro %}
@@ -1288,7 +1338,8 @@ for autocomplete see https://developer.mozilla.org/en-US/docs/Web/HTML/Attribute
     {% endif %}
     {# validation #}
     {% if validation %}
-        {% if validation.required %}
+      {# multilanguage fields exception #}
+        {% if validation.required and not config.nullableLocalized %}
         required="" 
         {% endif %}
         {% if validation.pattern %}
@@ -1358,7 +1409,7 @@ NOTE: javascript validation function creates automatically if needed, this macro
         {% endif %}
 <label for="{{ (config.id ?? config.name)|formatIdforJs }}" class="form-label {{ classes|join(' ') }}">
 {{ config.label|raw }}
-        {% if config.validation.required and (config.hideMandatories is not defined or config.hideMandatories == false) %}
+        {% if config.validation.required and (config.hideMandatories is not defined or config.hideMandatories == false) and not config.nullableLocalized %}
 <span title="{{ 'This field is mandatory'|trans }}" aria-label="required">
     {{ config.requiredLabel ?? '*' }}
 </span>
@@ -1405,6 +1456,9 @@ $(document).ready(function() {
         {% endif %}
         {% if config.maxlength %}
             {% set help = help|merge(['maximum length %s characters'|trans|format(config.maxlength)]) %}
+        {% endif %}
+        {% if config.nullableLocalized %}
+            {% set help = help|merge(['if not compiled this field will be translated automatically'|trans]) %}
         {% endif %}
         {% if help is not empty %}
     <small id="{{ '%s-help'|format(config.id ?? config.name )|formatIdforJs }}" class="form-text text-muted">{{ help|join('; ')|raw }}</small>
@@ -1815,6 +1869,33 @@ simplexValidation.init();
 {% macro localesAssets(context) %}
 <!-- Flag icon css -->
 <link href="{{ 'flag-icons/css/flag-icons.min.css'|pathToNpmAsset }}" media="all" rel="stylesheet" type="text/css" />
+  {% if constant('AUTOMATIC_TRANSLATIONS') is defined %}
+<!-- text input translations -->
+  <script>
+    $(document).ready(function() {
+      $('.translate-text-input').click(function() {
+        input = $(this).parents('.input-group').children('input');
+        translate(
+          '{{ '/%s/%s/translate'|format(context.area, context.subject) }}',
+          input.val(),
+          handleTextInputTranslations,
+          {masterEditorId: input.attr('id')}
+        );
+      });
+    });
+    function handleTextInputTranslations(translations, extraData) {
+      for(languageCode in translations) {
+        if(languageCode !== '{{ attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage') }}') {
+          inputConfigId = extraData.masterEditorId.replace(
+            new RegExp("_{{ attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage') }}_$", "i"),
+            '_' + languageCode + '_'
+          );
+          $('#' + inputConfigId).val(translations[languageCode]);
+        }
+      }
+    }
+  </script>
+  {% endif %}
 {% endmacro %}
 
 {# date time picker
@@ -1856,6 +1937,36 @@ language packages must be downloaded from https://www.tiny.cloud/get-tiny/langua
 		height: 400
 	});*/
 </script> #}
+{# translation #}
+  {% if constant('AUTOMATIC_TRANSLATIONS') is defined %}
+  <!-- rich text translations -->
+  <script>
+    Jodit.defaultOptions.controls.translate = {
+      tooltip: 'translate into other languages',
+      icon: 'translate',
+      exec: (editor) => {
+        translate(
+          '{{ '/%s/%s/translate'|format(context.area, context.subject) }}',
+          editor.value,
+          handleRichTextTranslations,
+          {masterEditorId: editor.id}
+        );
+      }
+    };
+    Jodit.modules.Icon.set('translate', '<span class="icon-erp-languages"></span>');
+    function handleRichTextTranslations(translations, extraData) {
+      for(languageCode in translations) {
+        if(languageCode !== '{{ attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage') }}') {
+          inputConfigId = extraData.masterEditorId.replace(
+            new RegExp("_{{ attribute(constant('AUTOMATIC_TRANSLATIONS'), 'defaultSourceLanguage') }}_$", "i"),
+            '_' + languageCode + '_'
+          );
+          eval('richTextEditor_' + inputConfigId).value = translations[languageCode];
+        }
+      } 
+    }
+  </script>
+  {% endif %}
 {% endmacro %}
 
 {# file upload 

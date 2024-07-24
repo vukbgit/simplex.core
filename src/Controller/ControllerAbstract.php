@@ -346,4 +346,35 @@ abstract class ControllerAbstract
         $this->response = $this->response->withStatus(302);
         //xx($this->response);
     }
+
+
+    
+  /***************
+  * TRANSLATIONS *
+  ****************/
+  
+  /**
+   * Gets translation for a text from a master language into all of the others configured languages 
+   * @return array whose keys are languages and values translations
+   */
+  public function translate()
+  {
+    $translator = $this->DIContainer->get('translator');
+    $translations = [];
+    $text = filter_input(INPUT_POST, 'text', FILTER_UNSAFE_RAW);
+    foreach ($this->languages as $languageCode => $languageconfig) {
+      //source language
+      if($languageCode == constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage) {
+        $value = $text;
+      } else {
+        //other languages
+        $value = $translator->translate(
+          text: $text,
+          target: $languageCode
+        );
+      }
+      $translations[$languageCode] = $value;
+    }
+    $this->output('text/json', json_encode($translations));
+  }
 }

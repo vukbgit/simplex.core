@@ -36,6 +36,8 @@ use Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 use Cocur\Slugify\Slugify;
 //sitemap
 use Simplex\Sitemap;
+//libretranslate
+use Jefs42\LibreTranslate;
 //to get LOCAL CLASSES
 use function Simplex\mergeArrayFromFiles;
 //definitions array
@@ -120,6 +122,13 @@ return array_merge(
         'slugifier' => create(Slugify::class),
         //sitemap
         'xmlSitemap' => create(Sitemap\XmlSitemap::class),
+        //sitemap
+        'translator' => create(LibreTranslate::class)
+          ->constructor(
+            constant('AUTOMATIC_TRANSLATIONS')->server ?? null,
+            constant('AUTOMATIC_TRANSLATIONS')->port ?? null,
+            constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage ?? null,
+          ),
         /**********************************
         * STOP ADDITIONAL FUNCTIONALITIES *
         **********************************/

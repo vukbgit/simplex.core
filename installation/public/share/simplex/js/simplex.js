@@ -37,5 +37,29 @@ function EmailUnobsfuscate(atReplacement, dotReplacement) {
     }
 }
 //window.onload = EmailUnobsfuscate;
- 
+
+/**************
+* TRANSLATION *
+***************/
+/**
+ * Gets translation for a text from a master language into all of the others configured languages
+ * @param string route: to be called to get translations
+ * @param string text to be translated
+ * @param callback callback function to pass translations array to
+ * @param object extraData any other data to be passed to callback
+ */
+function translate(route, text, callback, extraData) {
+  $.ajax({
+    type: "POST",
+    url: route,
+    data: ({ text : text }),
+    dataType: "json",
+    success: function(data) {
+      callback(data, extraData);
+    },
+    error: function() {
+        alert('Error in translation request');
+    }
+  });
+}
  

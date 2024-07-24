@@ -58,3 +58,12 @@ define('UUID_REGEXP', sprintf('^%s$', UUID_REGEXP_CORE));
 ***************/
 //folder for translations po and mo files
 define('TRANSLATIONS_DIR', sprintf('%s/locales', PRIVATE_LOCAL_DIR));
+//automatic translations
+define('AUTOMATIC_TRANSLATIONS', (object)[
+  //URL to translation server
+  'server' => 'https://translation.vuk.bg.it/',
+  //port (default 5000)
+  //'port' => '5000',
+  //used to translate from
+  'defaultSourceLanguage' => 'it',
+]);

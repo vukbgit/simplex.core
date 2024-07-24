@@ -5,6 +5,8 @@ namespace Simplex\Model;
 
 use Simplex\PixieExtended;
 use Simplex\PixieConnectionExtended;
+
+use Jefs42\LibreTranslate;
 use function Simplex\getInstanceNamespace;
 use function Simplex\getInstancePath;
 use function Simplex\loadLanguages;
@@ -682,33 +684,53 @@ abstract class ModelAbstract extends BaseModelAbstract
     */
     public function saveLocales($primaryKeyValue, $localesValues)
     {
-        //check locales table
-        $localesTableName = $this->localesTable();
-        if (!$this->query->tableExists($localesTableName)) {
-            throw new \Exception(sprintf('missing %s locales tables for model %s', $localesTableName, getInstanceNamespace($this)));
-            
+      //automatic translations
+      if(defined('AUTOMATIC_TRANSLATIONS')) {
+        global $DIContainer;
+        $translator = $DIContainer->get('translator');
+      }
+      //check locales table
+      $localesTableName = $this->localesTable();
+      if (!$this->query->tableExists($localesTableName)) {
+        throw new \Exception(sprintf('missing %s locales tables for model %s', $localesTableName, getInstanceNamespace($this)));
+      }
+      //reset values
+      $this->query
+        ->table($localesTableName)
+        ->where($this->config->primaryKey, $primaryKeyValue)
+        ->delete();
+      //loop fields
+      $records = [];
+      foreach ($localesValues as $languageCode => $fieldLocalesValues) {
+        $record = [
+          'language_code' => $languageCode,
+          $this->config->primaryKey => $primaryKeyValue
+        ];
+        //loop languages
+        foreach ($fieldLocalesValues as $fieldName => $fieldValue) {
+          //automatic translations
+          if(
+            defined('AUTOMATIC_TRANSLATIONS')
+            &&
+            !$fieldValue
+            &&
+            $languageCode !== constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage
+            &&
+            $localesValues[constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage][$fieldName]
+          ) {
+            $record[$fieldName] = $translator->translate(
+              text: $localesValues[constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage][$fieldName],
+              target: $languageCode
+            );
+          } else {
+            $record[$fieldName] = $fieldValue;
+          }
         }
-        //reset values
-        $this->query
-            ->table($localesTableName)
-            ->where($this->config->primaryKey, $primaryKeyValue)
-            ->delete();
-        //loop fields
-        $records = [];
-        foreach ($localesValues as $languageCode => $fieldLocalesValues) {
-            $record = [
-                'language_code' => $languageCode,
-                $this->config->primaryKey => $primaryKeyValue
-            ];
-            //loop languages
-            foreach ($fieldLocalesValues as $fieldName => $fieldValue) {
-                $record[$fieldName] = $fieldValue;
-            }
-            $records[] = $record;
-        }
-        $this->query
-            ->table($localesTableName)
-            ->insert($records);
+        $records[] = $record;
+      }
+      $this->query
+        ->table($localesTableName)
+        ->insert($records);
     }
     
     /**********
