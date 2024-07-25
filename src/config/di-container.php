@@ -125,9 +125,9 @@ return array_merge(
         //sitemap
         'translator' => create(LibreTranslate::class)
           ->constructor(
-            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->server : null,
-            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->port : null,
-            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage : null,
+            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->server ?? null : null,
+            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->port ?? null : null,
+            defined('AUTOMATIC_TRANSLATIONS') ? constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage ?? null : null,
           ),
         /**********************************
         * STOP ADDITIONAL FUNCTIONALITIES *
