@@ -1,3 +1,7 @@
+## 3.15.23 (July 25, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.22 -> 3.15.23
+- fix: translator DI definition
+
 ## 3.15.22 (July 25, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.21 -> 3.15.22
 - fix: translator DI definition
