@@ -733,6 +733,106 @@ abstract class ModelAbstract extends BaseModelAbstract
         ->insert($records);
     }
     
+  /**
+   * Gets missing translations
+   * @param int $limit
+   */
+  public function getMissingTranslations(int $limit)
+  {
+    if(defined('AUTOMATIC_TRANSLATIONS')) {
+      $primaryKey = $this->getConfig()->primaryKey;
+      $localizedFields = $this->getConfig()->locales;
+      //source table alias
+      $st = 's';
+      //translations table alias
+      $tt = 't';
+      $defaultSourceLanguage = constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage;
+      $defaultSourceLanguageRaw = $this->rawField("'$defaultSourceLanguage'");
+      //fields
+      $fields = [
+        $tt . '.' . $primaryKey,
+        $tt . '.language_code',
+      ];
+      foreach ($localizedFields as $localizedField) {
+        $fields[] = $tt . '.' . $localizedField;
+        $fields[] = $this->rawField(
+          sprintf(
+          '%1$s.%2$s AS %2$s_source',
+          $st,
+          $localizedField
+          )
+        );
+      }
+      $this->query
+      ->table([$this->view() => $tt])
+      ->select($fields)
+        //exclude source language
+        ->where($tt .'.language_code', '<>', $defaultSourceLanguage)
+        ->where(function($q) use ($tt, $localizedFields)
+        {
+          foreach($localizedFields as $localizedField) {
+            //exclude "special" slug field
+            if($localizedField !== 'slug') {
+              $q
+                ->orWhere($tt . '.' .  $localizedField, '');
+            }
+          }
+        }
+      );
+      //join over source language field to get source texts
+      $this->query
+        ->join(
+          [$this->view(), $st],
+          function($table) use ($st, $tt, $primaryKey, $defaultSourceLanguageRaw)
+          {
+            $table->on($st . '.' . $this->getConfig()->primaryKey, '=', $tt . '.' . $primaryKey);
+            $table->on($st . '.language_code', '=',  $defaultSourceLanguageRaw);
+          }
+        );
+      //limit
+      $this->query->limit($limit);
+      //get
+      return $this->query
+        ->get();
+    } else {
+      return [];
+    }
+  }
+
+  /**
+   * Inserts missing translations
+   * @param int $limit
+   * @return int $number of translated records
+   */
+  public function insertMissingTranslations(int $limit)
+  {
+    global $DIContainer;
+    $translator = $DIContainer->get('translator');
+    $records = $this->getMissingTranslations($limit);
+    $primaryKey = $this->getConfig()->primaryKey;
+    $localizedFields = $this->getConfig()->locales;
+    $translatedRecordsNumber = 0;
+    foreach((array) $records as $record) {
+      $data = [];
+      foreach ($localizedFields as $localizedField) {
+        //exclude "special" slug field
+        if($localizedField !== 'slug' && !$record->$localizedField) {
+          $data[$localizedField] = $translator->translate(
+            text: $record->{$localizedField . '_source'},
+            target: $record->language_code
+          );
+        }
+      }
+      $this->query->
+        table($this->localesTable())
+          ->where($primaryKey, $record->$primaryKey)
+          ->where('language_code', $record->language_code)
+          ->update($data);
+      $translatedRecordsNumber++;
+    }
+    return $translatedRecordsNumber;
+  }
+
     /**********
     * UPLOADS *
     **********/
