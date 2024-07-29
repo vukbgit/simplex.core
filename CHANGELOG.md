@@ -1,3 +1,7 @@
+## 3.15.25 (July 29, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.24 -> 3.15.25
+- fix: crop image
+
 ## 3.15.24 (July 25, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.23 -> 3.15.24
 - batch automatic translations
