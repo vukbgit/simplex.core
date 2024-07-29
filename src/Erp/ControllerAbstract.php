@@ -1378,7 +1378,7 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
      * @param string $path
      * @param int $width
      * @param int $height
-     * @param int $fitMethodConstantName: name of constant of the Spatie\Image\Enums\Fit class: Fit::Contain, Fit::Max, Fit::Fill, Fit::Stretch, Fit::Crop (see https://spatie.be/docs/image/v2/image-manipulations/resizing-images#content-fit)
+     * @param int $fitMethodConstantName: name of constant of the Spatie\Image\Enums\Fit class: Fit::Contain, Fit::Max, Fit::Fill, Fit::Stretch, Fit::Crop (see https://spatie.be/docs/image/v3/image-manipulations/resizing-images#content-fit)
      */
     protected static function fitImage($path, $width, $height, $fitMethodConstantName = 'Fit::Contain')
     {
@@ -1392,7 +1392,7 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
      * @param string $path
      * @param int $width
      * @param int $height
-     * @param string $cropMethodConstantName: name of constant of the Spatie\Image\Enums\CropPosition class: CropPosition::TopLeft, CropPosition::Top, CropPosition::TopRight, CropPosition::Left, CropPosition::Center, CropPosition::Right, CropPosition::BottomLeft, CropPosition::Bottom, CropPosition::BottomRight (see https://spatie.be/docs/image/v2/image-manipulations/resizing-images#content-crop)
+     * @param string $cropMethodConstantName: name of constant of the Spatie\Image\Enums\CropPosition class: CropPosition::TopLeft, CropPosition::Top, CropPosition::TopRight, CropPosition::Left, CropPosition::Center, CropPosition::Right, CropPosition::BottomLeft, CropPosition::Bottom, CropPosition::BottomRight (see https://spatie.be/docs/image/v3/image-manipulations/resizing-images#content-crop)
      */
     protected static function resizeAndCropImage($path, $width, $height, $cropMethodConstantName)
     {
@@ -1400,7 +1400,7 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
            ->width($width)
            ->height($height)
            //->crop(constant('Spatie\Image\Manipulations::' . $cropMethodConstantName), $width, $height)
-           ->crop($width, $height, constant('Spatie\Image\Enums::' . $cropMethodConstantName))
+           ->crop($width, $height, constant('Spatie\Image\Enums\\' . $cropMethodConstantName))
            ->save();
     }
     
