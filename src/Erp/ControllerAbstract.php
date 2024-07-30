@@ -1396,12 +1396,27 @@ abstract class ControllerAbstract extends ControllerWithoutCRUDLAbstract
      */
     protected static function resizeAndCropImage($path, $width, $height, $cropMethodConstantName)
     {
-        Image::load($path)
-           ->width($width)
-           ->height($height)
-           //->crop(constant('Spatie\Image\Manipulations::' . $cropMethodConstantName), $width, $height)
-           ->crop($width, $height, constant('Spatie\Image\Enums\\' . $cropMethodConstantName))
-           ->save();
+      Image::load($path)
+        ->width($width)
+        ->height($height)
+        ->crop($width, $height, constant('Spatie\Image\Enums\\' . $cropMethodConstantName))
+        ->save();
+    }
+    
+    /**
+     * Crops and resizes (proprtionally to fit into a box of given width and ratio) an image
+     * @param string $path
+     * @param int $width
+     * @param int $height
+     * @param string $cropMethodConstantName: name of constant of the Spatie\Image\Enums\CropPosition class: CropPosition::TopLeft, CropPosition::Top, CropPosition::TopRight, CropPosition::Left, CropPosition::Center, CropPosition::Right, CropPosition::BottomLeft, CropPosition::Bottom, CropPosition::BottomRight (see https://spatie.be/docs/image/v3/image-manipulations/resizing-images#content-crop)
+     */
+    protected static function cropAndResizeImage($path, $width, $height, $cropMethodConstantName)
+    {
+      Image::load($path)
+        ->crop($width, $height, constant('Spatie\Image\Enums\\' . $cropMethodConstantName))
+        ->width($width)
+        ->height($height)
+        ->save();
     }
     
     /**********************************
