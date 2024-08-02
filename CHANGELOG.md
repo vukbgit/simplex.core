@@ -1,3 +1,7 @@
+## 3.15.27 (August 02, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.26 -> 3.15.27
+- isAuthenticated() tmeplate function
+
 ## 3.15.26 (July 30, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.25 -> 3.15.26
 - crop and resize image
