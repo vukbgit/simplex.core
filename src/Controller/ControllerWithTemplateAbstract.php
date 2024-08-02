@@ -659,6 +659,10 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
         /********
         * USERS *
         ********/
+        //checks whether user is authenticated
+        $this->addTemplateFunction('isAuthenticated', function(){
+            return $this->isAuthenticated();
+        });
         //checks a user permission
         $this->addTemplateFunction('checkPermission', function(string $permission){
             return $this->checkPermission($permission);
