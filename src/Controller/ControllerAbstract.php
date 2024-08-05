@@ -77,6 +77,12 @@ abstract class ControllerAbstract
 
     /**
     * @var bool
+    * whether subject has authentication
+    */
+    protected $hasAuthentication = false;
+
+    /**
+    * @var bool
     * whether subject needs authentication
     */
     protected $needsAuthentication = false;
@@ -105,7 +111,8 @@ abstract class ControllerAbstract
         //before action execution
         $this->doBeforeActionExecution($request);
         //verify authentication
-        if(!$this->needsAuthentication || $this->verifyAuthentication($request)) {
+        //if(!$this->needsAuthentication || $this->verifyAuthentication($request)) {
+        if(!$this->hasAuthentication || $this->verifyAuthentication($request)) {
             //handle action
             $this->handleActionExecution();
         }
@@ -165,7 +172,17 @@ abstract class ControllerAbstract
         $this->request = $request;
         $this->routeParameters = $request->getAttributes()['parameters'];
         $this->queryParameters = (object) $request->getQueryParams();
+        $this->hasAuthentication = $this->hasAuthentication($request);
         $this->needsAuthentication = $this->needsAuthentication($request);
+    }
+
+    /**
+    * Checks whether subject has authentication based on request
+    * @param ServerRequestInterface $request
+    */
+    protected function hasAuthentication(ServerRequestInterface $request)
+    {
+      return isset($request->getAttributes()['parameters']->authentication);
     }
 
     /**
@@ -174,7 +191,14 @@ abstract class ControllerAbstract
     */
     protected function needsAuthentication(ServerRequestInterface $request)
     {
-        return isset($request->getAttributes()['parameters']->authentication);
+      return
+        isset($request->getAttributes()['parameters']->authentication)
+        &&
+        (
+        !isset($request->getAttributes()['parameters']->authentication->optional)
+        ||
+        !$request->getAttributes()['parameters']->authentication->optional
+        );
     }
 
     /**
@@ -235,13 +259,19 @@ abstract class ControllerAbstract
     */
     protected function isAuthenticated(): bool
     {
-        //no autentication needed
-        if(!$this->needsAuthentication) {
-            return false;
-        } else {
-            $requestAttributes = $this->request->getAttributes();
-            return $requestAttributes['authenticationResult']->{$this->area}->authenticated;
-        }
+      //no autentication needed
+      /* if(!$this->needsAuthentication) {
+          return false;
+      } else {
+          $requestAttributes = $this->request->getAttributes();
+          return $requestAttributes['authenticationResult']->{$this->area}->authenticated;
+      } */
+      if(!$this->hasAuthentication) {
+          return false;
+      } else {
+        $requestAttributes = $this->request->getAttributes();
+        return $requestAttributes['authenticationResult']->{$this->area}->authenticated;
+      }
     }
     
     /**
@@ -265,11 +295,11 @@ abstract class ControllerAbstract
     protected function getAuthenticatedUserData(ServerRequestInterface $request = null)
     {
       $request = $this->request ?? $request;
-        if($this->needsAuthentication($request) && $this->verifyAuthentication($request)) {
-            return $request->getAttributes()['userData'] ?? null;
-        } else {
-            return null;
-        }
+      if($this->hasAuthentication($request) && $this->verifyAuthentication($request)) {
+        return $request->getAttributes()['userData'] ?? null;
+      } else {
+        return null;
+      }
     }
     
     /**
