@@ -112,7 +112,7 @@ abstract class ControllerAbstract
         $this->doBeforeActionExecution($request);
         //verify authentication
         //if(!$this->needsAuthentication || $this->verifyAuthentication($request)) {
-        if(!$this->hasAuthentication || $this->verifyAuthentication($request)) {
+        if(!$this->hasAuthentication || !$this->needsAuthentication || $this->verifyAuthentication($request)) {
             //handle action
             $this->handleActionExecution();
         }
