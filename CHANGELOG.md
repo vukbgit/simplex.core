@@ -1,3 +1,7 @@
+## 3.15.29 (August 05, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.28 -> 3.15.29
+- authentication
+
 ## 3.15.28 (August 05, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.27 -> 3.15.28
 - authentication
