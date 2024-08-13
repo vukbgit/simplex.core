@@ -184,9 +184,10 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
     * @param string $routeKey
     * @param array $multipleTokensKeys: in case some token has multiple possible values the key to be used, in the order they appear inside route definition
     * @param string $languageCode
+    * @param string $textFragment with or without hash
     * @return string the route
     */
-    protected function buildLocaleRoute(string $routeKey, array $multipleTokensKeys = [], string $languageCode = null): string
+    protected function buildLocaleRoute(string $routeKey, array $multipleTokensKeys = [], string $languageCode = null, string $textFragment = null): string
     {
       //set language
       if(!$languageCode) {
@@ -196,7 +197,7 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
       $language = $this->languages->$languageCode;
       //compare to page selected language
       $changeLanguage = $languageCode != $this->language->{'ISO-639-1'};
-      $route = buildLocaleRoute('route', $language, $routeDefinition['handler'][1]['locale'], $multipleTokensKeys);
+      $route = buildLocaleRoute('route', $language, $routeDefinition['handler'][1]['locale'], $multipleTokensKeys, $textFragment);
       if($changeLanguage) {
         $languageIETF = sprintf('%s_%s', $this->language->{'ISO-639-1'}, $this->language->{'ISO-3166-1-2'});
         setlocale(LC_ALL, sprintf('%s.utf8', $languageIETF));
