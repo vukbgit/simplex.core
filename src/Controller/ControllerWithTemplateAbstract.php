@@ -553,10 +553,11 @@ abstract class ControllerWithTemplateAbstract extends ControllerAbstract
         * @param string $routeKey: as set into route definition property 'locale'->key
         * @param array $multipleTokensKeys: in case some token has multiple possible values the key to be used, in the order they appear inside route definition
         * @param string $languageCode
+        * @param string $textFragment with or without hash
         * @return string the route
         */
-        $this->addTemplateFunction('buildLocaleRoute', function(string $routeKey, array $multipleTokensKeys = [], string $languageCode = null){
-          return $this->buildLocaleRoute($routeKey, $multipleTokensKeys, $languageCode);
+        $this->addTemplateFunction('buildLocaleRoute', function(string $routeKey, array $multipleTokensKeys = [], string $languageCode = null, string $textFragment = null){
+          return $this->buildLocaleRoute($routeKey, $multipleTokensKeys, $languageCode, $textFragment);
         });
         
         /*******
