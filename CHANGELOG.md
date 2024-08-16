@@ -1,3 +1,7 @@
+## 3.15.31 (August 16, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.30 -> 3.15.31
+- buildLocaleRoute template function
+
 ## 3.15.30 (August 13, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.29 -> 3.15.30
 - feat: added text fragment to buildLocaleRoute function
