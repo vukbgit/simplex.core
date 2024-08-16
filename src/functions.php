@@ -172,10 +172,11 @@ if (!function_exists('Simplex\buildLocaleRoute')) {
   * @param object $language: as returned from a loadLanguages call
   * @param object $routeDefinitionLocale
   * @param array $multipleTokensKeys: in case some token has multiple possible values the key to be used, in the order they appear inside route definition
+  * @param array $urlParameters: indexed by parameter name
   * @param string $textFragment with or without hash
   * @return string
   */
-  function buildLocaleRoute(string $target, object $language, object $routeDefinitionLocale, array $multipleTokensKeys = [], string $textFragment = null) :string
+  function buildLocaleRoute(string $target, object $language, object $routeDefinitionLocale, array $multipleTokensKeys = [], array $urlParameters = [], string $textFragment = null) :string
   {
     $routeKey = $routeDefinitionLocale->key;
     $tokensDefinitions = $routeDefinitionLocale->tokens;
@@ -261,8 +262,9 @@ if (!function_exists('Simplex\buildLocaleRoute')) {
       $tokenIndex++;
     }
     return sprintf(
-      '/%s%s',
+      '/%s%s%s',
       implode('/', $routeTokens),
+      $urlParameters ? '?' . http_build_query($urlParameters) : '',
       $textFragment ? (!str_starts_with($textFragment, '#') ? '#' : '') . $textFragment : ''
     );
   }
