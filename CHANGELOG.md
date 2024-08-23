@@ -1,3 +1,7 @@
+## 3.15.33 (August 23, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.32 -> 3.15.33
+- libretranslate dependency
+
 ## 3.15.32 (August 16, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.31 -> 3.15.32
 - buildLocaleRoute template function
