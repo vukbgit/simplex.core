@@ -1,3 +1,7 @@
+## 3.15.34 (September 05, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.33 -> 3.15.34
+- fix: richselect selected value label
+
 ## 3.15.33 (August 23, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.32 -> 3.15.33
 - libretranslate dependency
