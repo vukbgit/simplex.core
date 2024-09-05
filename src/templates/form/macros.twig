@@ -523,9 +523,9 @@ NOTE: to perform validation Simplex does not use browser built in but a pattern 
     {% endif %}
     {% for item in items %}
         {% set selected = item.value == value %}
-    <option value="{{ item.value }}"{% if selected %} selected="selected"{% endif %}>{{ item.label }}</option>
+    <option value="{{ item.value }}"{% if selected %} selected="selected"{% endif %}>{{ item.label|raw }}</option>
     {% endfor %}
-    {% if config.remoteDataRoute is defined and config.remoteDataRoute and value is defined and value and config.valueLabel is defined and config.valueLabel %}
+    {% if value is defined and value and config.valueLabel is defined and config.valueLabel %}
     <option value="{{ value }}" selected="selected">{{ config.valueLabel }}</option>
     {% endif %}
 </select>
