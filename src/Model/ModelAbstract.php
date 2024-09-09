@@ -565,26 +565,34 @@ abstract class ModelAbstract extends BaseModelAbstract
             //get uploaded files to check for deletion
             $uploadedFilesToDelete = $this->getUploadedFiles($where);
         }
+        //get record
+        if($this->hasPositionField) {
+          $record = $this->first($where);
+        }
         //delete record
         $this->query
-            ->table($this->table());
+        ->table($this->table());
         $this->query->buildWhere($where);
         $this->query->delete();
         //uploads
         if($this->hasUploads()) {
-            $uploadKeys = $this->getUploadKeys();
-            //group files by upload key
-            $uploadedFilesByUploadKey = [];
-            foreach ($uploadKeys as $uploadKey) {
-                $uploadedFilesByUploadKey[$uploadKey] = [];
-            }
-            foreach ($uploadedFilesToDelete as $uploadedFileToDelete) {
-                $uploadedFilesByUploadKey[$uploadedFileToDelete->upload_key][] = $uploadedFileToDelete;
+          $uploadKeys = $this->getUploadKeys();
+          //group files by upload key
+          $uploadedFilesByUploadKey = [];
+          foreach ($uploadKeys as $uploadKey) {
+            $uploadedFilesByUploadKey[$uploadKey] = [];
+          }
+          foreach ($uploadedFilesToDelete as $uploadedFileToDelete) {
+              $uploadedFilesByUploadKey[$uploadedFileToDelete->upload_key][] = $uploadedFileToDelete;
             }
             foreach ($uploadedFilesByUploadKey as $uploadKey => $uploadedFilesToDelete) {
-                $this->unlinkUploadedFiles($uploadKey, $uploadedFilesToDelete);
+              $this->unlinkUploadedFiles($uploadKey, $uploadedFilesToDelete);
             }
-        }
+          }
+          //position
+          if($this->hasPositionField) {
+            $this->checkSiblingsPosition($record);
+          }
     }
     
     /********
@@ -1121,6 +1129,35 @@ EOT;
             ->table($this->table())
             ->where($this->config->primaryKey, $sibling->{$this->config->primaryKey})
             ->update([$positionField => $record->$positionField]);
+    }
+    
+    /**
+     * Checks and fixes siblings positions
+     * @param object $record
+     */
+    public function checkSiblingsPosition(object $record)
+    {
+      $positionField = $this->config->position->field;
+      //get siblings
+      $this->query
+          ->table($this->table());
+      //filter
+      foreach ((array) $this->config->position->contextFields as $contextField) {
+        $this->query->where($contextField, $record->$contextField);
+      }
+      //order by position
+      $this->query->orderBy($positionField);
+      $siblings = $this->query->get();
+      $position = 0;
+      foreach ($siblings as $sibling) {
+        $position++;
+        if($sibling->$positionField != $position) {
+          $data = [
+            $positionField => $position
+          ];
+          $this->update($sibling->{$this->config->primaryKey}, $data);
+        }
+      }
     }
     
     /***********
