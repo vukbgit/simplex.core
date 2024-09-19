@@ -1,3 +1,7 @@
+## 3.15.36 (September 19, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.35 -> 3.15.36
+- automatic translations
+
 ## 3.15.35 (September 09, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.34 -> 3.15.35
 - fix: record position
