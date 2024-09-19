@@ -1,3 +1,7 @@
+## 3.15.37 (September 19, 2024)
+- chore: updated package.json, updated CHANGELOG.md, bumped 3.15.36 -> 3.15.37
+- automatic translations
+
 ## 3.15.36 (September 19, 2024)
 - chore: updated package.json, updated CHANGELOG.md, bumped 3.15.35 -> 3.15.36
 - automatic translations
