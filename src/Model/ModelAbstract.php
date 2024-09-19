@@ -803,8 +803,8 @@ abstract class ModelAbstract extends BaseModelAbstract
       //get
       $toBetranslated = $this->query
         ->get();
-      x($this->sql());
-      xx($toBetranslated);
+      //x($this->sql());
+      //xx($toBetranslated);
       return $toBetranslated;
     } else {
       return [];
