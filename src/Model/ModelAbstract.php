@@ -727,7 +727,8 @@ abstract class ModelAbstract extends BaseModelAbstract
             $localesValues[constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage][$fieldName]
           ) {
             $record[$fieldName] = $translator->translate(
-              text: $localesValues[constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage][$fieldName],
+              //lower case due to https://github.com/LibreTranslate/LibreTranslate/issues/20
+              text: strtolower($localesValues[constant('AUTOMATIC_TRANSLATIONS')->defaultSourceLanguage][$fieldName]),
               target: $languageCode
             );
           } else {
@@ -800,8 +801,11 @@ abstract class ModelAbstract extends BaseModelAbstract
       //limit
       $this->query->limit($limit);
       //get
-      return $this->query
+      $toBetranslated = $this->query
         ->get();
+      x($this->sql());
+      xx($toBetranslated);
+      return $toBetranslated;
     } else {
       return [];
     }
@@ -826,7 +830,8 @@ abstract class ModelAbstract extends BaseModelAbstract
         //exclude "special" slug field
         if($localizedField !== 'slug' && !$record->$localizedField) {
           $data[$localizedField] = $translator->translate(
-            text: $record->{$localizedField . '_source'},
+            //lower case due to https://github.com/LibreTranslate/LibreTranslate/issues/20
+            text: strtolower($record->{$localizedField . '_source'}),
             target: $record->language_code
           );
         }

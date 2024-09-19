@@ -399,7 +399,8 @@ abstract class ControllerAbstract
       } else {
         //other languages
         $value = $translator->translate(
-          text: $text,
+          //lower case due to https://github.com/LibreTranslate/LibreTranslate/issues/20
+          text: strtolower($text),
           target: $languageCode
         );
       }
